@@ -51,6 +51,12 @@ def main():
 
     root.mainloop()
 
+'''
+if symbol in rules:
+    replace 
+'''
+
+
 
 if __name__ == "__main__":
     main()
