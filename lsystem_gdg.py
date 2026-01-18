@@ -55,7 +55,25 @@ def main():
 if symbol in rules:
     replace 
 '''
+def rule_converter(text):
+    rules = {}
+    parts = text.split(",")
 
+    for part in parts:
+        if ":" in part:
+            key, value = part.split(":")
+            rules[key.strip()] = value.strip()
+
+    return rules
+
+'''
+set current = axiom
+repeat for each iteration:
+    for each symbol in current: 
+    if symbol in rules replace it 
+    else keep it and then update current
+return current
+'''
 
 
 if __name__ == "__main__":
