@@ -50,8 +50,7 @@ def main():
     iteration = tk.Entry(frame)
     iteration.pack(pady=5)
 
-    tk.Button(frame, text="Generate", command=generate).pack(pady=20)
-
+    tk.Button(frame, text="Generate").pack(pady=20)
 
     root.mainloop()
 
