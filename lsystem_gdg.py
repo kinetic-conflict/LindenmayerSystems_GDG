@@ -14,15 +14,8 @@ Iteration - how many times to apply rule?
 '''
 
 def main():
-    root = tk.Tk()
-    root.title("Lindenmayer System")
-    root.geometry("900x600")
     
-import tkinter as tk
-
-def main():
-    
-    global axiom, rules, iteration
+    global axiom, rules, iteration, t, angle
     
     root = tk.Tk()
     root.title("L-System Fractal Architect")
@@ -30,6 +23,9 @@ def main():
 
     canvas = tk.Canvas(root, width=600, height=600, bg="white")
     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    
+    t_screen = turtle.TurtleScreen(canvas)
+    t = turtle.RawTurtle(t_screen)
 
     frame = tk.Frame(root, width=300, bg="#e9e9e9")
     frame.pack(side=tk.RIGHT, fill=tk.Y)
@@ -50,8 +46,7 @@ def main():
     iteration = tk.Entry(frame)
     iteration.pack(pady=5)
 
-    tk.Button(frame, text="Generate", command=generate).pack(pady=20)
-
+    tk.Button(frame, text="Generate").pack(pady=20)
 
     root.mainloop()
 
@@ -98,8 +93,6 @@ convrt rules into dict and call lsystem
 print final string
 '''
 def generate():
-    
-    print("Hello")
     start = axiom.get()
     rule_text = rules.get()
     count = int(iteration.get())
@@ -107,8 +100,22 @@ def generate():
     rule_dict = rule_converter(rule_text)
     final_string = lsystem(start, rule_dict, count)
 
-    print(final_string)  # for debugging purpose
-    
+    t.clear()
+    t.penup()
+    t.goto(0, 0)
+    t.pendown()
+
+    turtle.tracer(0, 0)
+
+    for ch in final_string:
+        if ch == "F":
+            t.forward(5)
+        elif ch == "+":
+            t.right(int(angle.get()))
+        elif ch == "-":
+            t.left(int(angle.get()))
+
+    turtle.update()
 
 if __name__ == "__main__":
     main()
