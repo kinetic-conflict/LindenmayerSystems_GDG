@@ -21,6 +21,9 @@ def main():
 import tkinter as tk
 
 def main():
+    
+    global axiom, rules, iteration
+    
     root = tk.Tk()
     root.title("L-System Fractal Architect")
     root.geometry("900x600")
@@ -74,7 +77,34 @@ repeat for each iteration:
     else keep it and then update current
 return current
 '''
+def lsystem(axiom, rules, iteration):
+    current = axiom
 
+    for _ in range(iteration):
+        result = ""
+        for c in current:
+            if c in rules:
+                result += rules[c]
+            else:
+                result += c
+        current = result
+
+    return current
+
+'''
+take a, r, i as input
+convrt rules into dict and call lsystem
+print final string
+'''
+def generate():
+    start = axiom.get()
+    rule_text = rules.get()
+    count = int(iteration.get())
+
+    rule_dict = rule_converter(rule_text)
+    final_string = lsystem(start, rule_dict, count)
+
+    print(final_string)  # for debugging purpise
 
 if __name__ == "__main__":
     main()
