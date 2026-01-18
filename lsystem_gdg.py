@@ -1,5 +1,5 @@
 import tkinter as tk # for GUI
-import turtle # for Drawing
+import turtle # for drawing
 
 '''
 My notes:- 
@@ -26,6 +26,7 @@ def main():
     
     t_screen = turtle.TurtleScreen(canvas)
     t = turtle.RawTurtle(t_screen)
+    t.speed(0)  #maxspeed
 
     frame = tk.Frame(root, width=300, bg="#e9e9e9")
     frame.pack(side=tk.RIGHT, fill=tk.Y)
@@ -46,7 +47,7 @@ def main():
     iteration = tk.Entry(frame)
     iteration.pack(pady=5)
 
-    tk.Button(frame, text="Generate").pack(pady=20)
+    tk.Button(frame, text="Generate", command=generate).pack(pady=20)
 
     root.mainloop()
 
@@ -107,6 +108,8 @@ def generate():
 
     turtle.tracer(0, 0)
 
+    stack = []  #branch stack
+
     for ch in final_string:
         if ch == "F":
             t.forward(5)
@@ -114,6 +117,15 @@ def generate():
             t.right(int(angle.get()))
         elif ch == "-":
             t.left(int(angle.get()))
+
+        elif ch == "[":
+            stack.append((t.position(), t.heading()))
+        elif ch == "]":
+            pos, head = stack.pop()
+            t.penup()
+            t.goto(pos)
+            t.setheading(head)
+            t.pendown()
 
     turtle.update()
 
