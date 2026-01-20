@@ -27,6 +27,7 @@ def main():
     t_screen = turtle.TurtleScreen(canvas)
     t = turtle.RawTurtle(t_screen)
     t.speed(0)  #maxspeed
+    t_screen.setworldcoordinates(-300, -300, 300, 300)
 
     frame = tk.Frame(root, width=300, bg="#e9e9e9")
     frame.pack(side=tk.RIGHT, fill=tk.Y)
@@ -109,10 +110,18 @@ def generate():
     turtle.tracer(0, 0)
 
     stack = []  #branch stack
+    
+    total_len = len(final_string)
+    step = 0
+    
+
 
     for ch in final_string:
         if ch == "F":
+            ratio = step / total_len
+            t.pencolor(ratio, 0.4, 1 - ratio) #for gradeint
             t.forward(5)
+            step += 1
         elif ch == "+":
             t.right(int(angle.get()))
         elif ch == "-":
